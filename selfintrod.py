@@ -11,6 +11,9 @@ bot_author_id = 451028171131977738
 
 
 class selfintrod(Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
     @Cog.listener()
     async def on_message(self, message: Message):
         if not message.channel.id == 1107916826924564480:
@@ -45,9 +48,10 @@ class selfintrod(Cog):
     # @commands.slash_command
     # async def debug(self, ctx: ApplicationContext):
     # ctx.guild.guild
-    @commands.slash_command()
+    @commands.slash_command(name='hello')
     async def hello(self, ctx: ApplicationContext):
         await ctx.respond("Hi!")
+
     @Cog.listener()
     async def on_ready(self):
         print("selfintrod ready.")
