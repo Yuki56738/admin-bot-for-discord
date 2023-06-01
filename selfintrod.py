@@ -1,12 +1,14 @@
 # from google.cloud import firestore
 # from google.cloud.firestore import *
 import discord
+
 from discord.ext.commands import *
-from discord.ui import *
+# from discord.ui import *
 from discord import *
 
 # db = firestore.Client()
 bot_author_id = 451028171131977738
+
 
 class selfintrod(Cog):
     @Cog.listener()
@@ -39,13 +41,14 @@ class selfintrod(Cog):
             await message.delete()
             await message.author.remove_roles(villagerrole)
             await message.author.add_roles(citizenrole)
+
     # @commands.slash_command
     # async def debug(self, ctx: ApplicationContext):
-            # ctx.guild.guild
+    # ctx.guild.guild
     @Cog.listener()
     async def on_ready(self):
         print("selfintrod ready.")
 
-async def setup(bot):
-    await bot.add_cog(selfintrod(bot))
 
+def setup(bot):
+    bot.add_cog(selfintrod(bot))
