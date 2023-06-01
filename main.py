@@ -10,7 +10,7 @@ from selfintrod import selfintrod
 
 intents = Intents.all()
 
-bot = Bot(intents=intents, command_prefix=None)
+bot = discord.Bot()
 bot.load_extension("selfintrod")
 
 

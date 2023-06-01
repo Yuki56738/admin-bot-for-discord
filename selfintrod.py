@@ -2,7 +2,7 @@
 # from google.cloud.firestore import *
 import discord
 
-from discord.ext.commands import *
+# from discord.ext.commands import *
 # from discord.ui import *
 from discord import *
 
@@ -45,6 +45,9 @@ class selfintrod(Cog):
     # @commands.slash_command
     # async def debug(self, ctx: ApplicationContext):
     # ctx.guild.guild
+    @commands.slash_command()
+    async def hello(self, ctx: ApplicationContext):
+        await ctx.respond("Hi!")
     @Cog.listener()
     async def on_ready(self):
         print("selfintrod ready.")
