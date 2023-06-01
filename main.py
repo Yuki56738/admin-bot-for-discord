@@ -6,10 +6,11 @@ from discord import *
 # from discord.ext.commands import *
 # from discord.ext import *
 
-from selfintrod import selfintrod
+# from selfintrod import selfintrod
 
-intents = Intents.all()
+intents = discord.Intents.all()
 
+# bot = discord.Bot(intents=intents)
 bot = discord.Bot(intents=intents)
 bot.load_extension("selfintrod")
 
