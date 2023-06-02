@@ -85,6 +85,21 @@ class selfintrod(Cog):
                 await ctx.respond(f"現在の設定内容:")
                 await ctx.send_followup(x['ch'] + ': ' + x['text'])
 
+    @Cog.listener()
+    async def on_message(self, message: Message):
+        # if not message.channel.id == 1107916826924564480:
+        #     return
+        if message.author.bot:
+            return
+        # if message.guild.id != 965354369556049990:
+        #     return
+        fetchedmsgs = message.channel.history(limit=15).flatten()
+        # send_text =
+        global db
+        table: Table = db['notech']
+        r = table.find_one(ch=message.channel.id)
+        await message.channel.send(r['text'])
+        # to_send_text =
     """
     @commands.slash_command(name='setselfintrodch', description='初期の自己紹介を書くCHを設定する')
     @commands.option(name='ch',type=int)
