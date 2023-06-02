@@ -5,6 +5,9 @@ import discord
 # from discord.ext.commands import *
 # from discord.ui import *
 from discord import *
+import dataset
+db = dataset.connect('sqlite:///db.sqlite/adminbot')
+table = db['settings']
 
 # db = firestore.Client()
 bot_author_id = 451028171131977738
@@ -55,6 +58,10 @@ class selfintrod(Cog):
     @commands.option(name='ch',type=int)
     async def setselfintrodch(self, ctx: ApplicationContext, ch: int):
         await ctx.send_response(f'Setting to {ch}...')
+        global db
+        global table
+        table = table.insert(dict(name='settings'))
+
     @Cog.listener()
     async def on_ready(self):
         print("selfintrod ready.")
