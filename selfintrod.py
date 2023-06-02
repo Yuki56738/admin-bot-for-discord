@@ -21,34 +21,50 @@ class selfintrod(Cog):
 
     @Cog.listener()
     async def on_message(self, message: Message):
-        if not message.channel.id == 1107916826924564480:
-            return
         if message.author.bot:
             return
-        msgauthorroles = message.author.roles
-        # flag = False
-        hasvillager = False
-        villagerrole = 0
-        for x in msgauthorroles:
-            # print(x.name)
-            if '村人' in x.name:
-                hasvillager = True
-                villagerrole = x
-                break
-        citizenrole = 0
-        for x in message.guild.roles:
-            if '市民' in x.name:
-                citizenrole = x
-        # if message.channel.id == 965426636436697088:
-        if hasvillager and message.channel.id == 1107916826924564480:
-            # print('debug: now to do run some code')
-            msg = message.content
-            tosendchan = message.guild.get_channel(965426636436697088)
-            msg = f"{message.author.mention} さんのプロフ:\n" + msg
-            await tosendchan.send(msg)
-            await message.delete()
-            await message.author.remove_roles(villagerrole)
-            await message.author.add_roles(citizenrole)
+        if message.channel.id == 1107916826924564480:
+
+            msgauthorroles = message.author.roles
+            # flag = False
+            hasvillager = False
+            villagerrole = 0
+            for x in msgauthorroles:
+                # print(x.name)
+                if '村人' in x.name:
+                    hasvillager = True
+                    villagerrole = x
+                    break
+            citizenrole = 0
+            for x in message.guild.roles:
+                if '市民' in x.name:
+                    citizenrole = x
+            # if message.channel.id == 965426636436697088:
+            if hasvillager and message.channel.id == 1107916826924564480:
+                # print('debug: now to do run some code')
+                msg = message.content
+                tosendchan = message.guild.get_channel(965426636436697088)
+                msg = f"{message.author.mention} さんのプロフ:\n" + msg
+                await tosendchan.send(msg)
+                await message.delete()
+                await message.author.remove_roles(villagerrole)
+                await message.author.add_roles(citizenrole)
+
+        # if message.author.bot:
+        #     return
+            # if message.guild.id != 965354369556049990:
+            #     return
+
+        fetchedmsgs = await message.channel.history(limit=15).flatten()
+        # send_text =
+        global db
+        table: Table = db['notech']
+        r = table.find_one(ch=message.channel.id)
+        await message.channel.send(r['text'])
+        self.bot: Bot
+        for x in fetchedmsgs:
+            if x.author.id == self.bot.user.id:
+                await x.delete()
 
     # @commands.slash_command
     # async def debug(self, ctx: ApplicationContext):
@@ -85,20 +101,11 @@ class selfintrod(Cog):
                 await ctx.respond(f"現在の設定内容:")
                 await ctx.send_followup(x['ch'] + ': ' + x['text'])
 
-    @Cog.listener()
-    async def on_message(self, message: Message):
-        # if not message.channel.id == 1107916826924564480:
-        #     return
-        if message.author.bot:
-            return
-        # if message.guild.id != 965354369556049990:
-        #     return
-        fetchedmsgs = message.channel.history(limit=15).flatten()
-        # send_text =
-        global db
-        table: Table = db['notech']
-        r = table.find_one(ch=message.channel.id)
-        await message.channel.send(r['text'])
+    # @Cog.listener()
+    # async def on_message(self, message: Message):
+    #     # if not message.channel.id == 1107916826924564480:
+    #     #     return
+
         # to_send_text =
     """
     @commands.slash_command(name='setselfintrodch', description='初期の自己紹介を書くCHを設定する')
