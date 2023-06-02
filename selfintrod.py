@@ -51,7 +51,10 @@ class selfintrod(Cog):
     @commands.slash_command(name='hello')
     async def hello(self, ctx: ApplicationContext):
         await ctx.respond("Hi!")
-
+    @commands.slash_command(name='setselfintrodch', description='初期の自己紹介を書くCHを設定する')
+    @commands.option(name='ch',type=int)
+    async def setselfintrodch(self, ctx: ApplicationContext, ch: int):
+        await ctx.send_response(f'Setting to {ch}...')
     @Cog.listener()
     async def on_ready(self):
         print("selfintrod ready.")
