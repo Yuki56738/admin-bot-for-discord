@@ -6,8 +6,10 @@ import discord
 # from discord.ui import *
 from discord import *
 import dataset
-db = dataset.connect('sqlite:///db.sqlite/adminbot')
-table = db['settings']
+from dataset import *
+
+db = dataset.connect('sqlite:///db.sqlite')
+# table = db['settings']
 
 # db = firestore.Client()
 bot_author_id = 451028171131977738
@@ -54,13 +56,55 @@ class selfintrod(Cog):
     @commands.slash_command(name='ping')
     async def ping(self, ctx: ApplicationContext):
         await ctx.respond("Pong!")
+
+    @commands.slash_command(name='setnote', description='S***** Noteの文言とチャンネルを変える')
+    @commands.option(name='channel')
+    @commands.option(name='text')
+    async def setnote(self, ctx: ApplicationContext, channel: str, text: str):
+        global db
+        table: Table = db['notech']
+        data = dict(ch=channel, text=text, guild=ctx.guild.id)
+
+        # try:
+        #     # table.insert
+        #     table.update(data, ['ch'])
+        #
+        # except:
+        #     table.insert(data)
+        table.upsert(data, ['ch'])
+        r = table.find()
+        for x in r:
+            print(x['ch'], x['text'])
+        # await ctx.respond(f"{ctx.guild.get_channel(table.find_one('ch')}")
+
+        # await ctx.respond(f'{table.find()}')
+        r = table.find()
+        for x in r:
+            if ctx.guild.id == x['guild']:
+                # ctx.channel
+                await ctx.respond(f"現在の設定内容:")
+                await ctx.send_followup(x['ch'] + ': ' + x['text'])
+
+    """
     @commands.slash_command(name='setselfintrodch', description='初期の自己紹介を書くCHを設定する')
     @commands.option(name='ch',type=int)
     async def setselfintrodch(self, ctx: ApplicationContext, ch: int):
         await ctx.send_response(f'Setting to {ch}...')
         global db
-        global table
-        table = table.insert(dict(name='settings'))
+        # global table
+        table: Table = db['beforech']
+        data = dict(ch=ch)
+        # table.create_column(')
+        # try:
+        #     table.update(data, ['id'])
+        # except:
+        # table.drop_column()
+        # table.delete(table)
+        # if table.find()
+        # table.insert(data)
+        # table.update(data, ['id'])
+        # table = table.insert(dict())
+"""
 
     @Cog.listener()
     async def on_ready(self):
