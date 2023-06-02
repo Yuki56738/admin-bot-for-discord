@@ -51,9 +51,9 @@ class selfintrod(Cog):
     # @commands.slash_command
     # async def debug(self, ctx: ApplicationContext):
     # ctx.guild.guild
-    @commands.slash_command(name='hello')
-    async def hello(self, ctx: ApplicationContext):
-        await ctx.respond("Hi!")
+    @commands.slash_command(name='ping')
+    async def ping(self, ctx: ApplicationContext):
+        await ctx.respond("Pong!")
     @commands.slash_command(name='setselfintrodch', description='初期の自己紹介を書くCHを設定する')
     @commands.option(name='ch',type=int)
     async def setselfintrodch(self, ctx: ApplicationContext, ch: int):
