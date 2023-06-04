@@ -24,7 +24,6 @@ class selfintrod(Cog):
         if message.author.bot:
             return
         if message.channel.id == 1107916826924564480:
-
             msgauthorroles = message.author.roles
             # flag = False
             hasvillager = False
@@ -56,11 +55,12 @@ class selfintrod(Cog):
             #     return
 
         fetchedmsgs = await message.channel.history(limit=15).flatten()
-        # send_text =
         global db
         table: Table = db['notech']
         r = table.find_one(ch=message.channel.id)
-        await message.channel.send(r['text'])
+        to_send_msg = r['text']
+        # await message.channel.send(r['text'])
+        await message.channel.send(embed=Embed(description=to_send_msg))
         self.bot: Bot
         for x in fetchedmsgs:
             if x.author.id == self.bot.user.id:
@@ -77,6 +77,8 @@ class selfintrod(Cog):
     @commands.option(name='channel')
     @commands.option(name='text')
     async def setnote(self, ctx: ApplicationContext, channel: str, text: str):
+        if not ctx.user.guild_permissions.administrator:
+            await ctx.respond("権限拒否")
         global db
         table: Table = db['notech']
         data = dict(ch=channel, text=text, guild=ctx.guild.id)
