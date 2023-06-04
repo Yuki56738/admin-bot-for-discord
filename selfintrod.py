@@ -74,7 +74,7 @@ class selfintrod(Cog):
         await ctx.respond("Pong!")
 
     @commands.slash_command(name='setnote', description='S***** Noteの文言とチャンネルを変える')
-    @commands.option(name='channel')
+    @commands.option(name='channel', description='チャンネルID')
     @commands.option(name='text')
     async def setnote(self, ctx: ApplicationContext, channel: str, text: str):
         if not ctx.user.guild_permissions.administrator:
