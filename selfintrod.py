@@ -79,6 +79,7 @@ class selfintrod(Cog):
     async def setnote(self, ctx: ApplicationContext, channel: str, text: str):
         if not ctx.user.guild_permissions.administrator:
             await ctx.respond("権限拒否")
+            return
         global db
         table: Table = db['notech']
         data = dict(ch=channel, text=text, guild=ctx.guild.id)
