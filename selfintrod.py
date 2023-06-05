@@ -51,8 +51,8 @@ class selfintrod(Cog):
 
         # if message.author.bot:
         #     return
-            # if message.guild.id != 965354369556049990:
-            #     return
+        # if message.guild.id != 965354369556049990:
+        #     return
 
         fetchedmsgs = await message.channel.history(limit=15).flatten()
         global db
@@ -84,19 +84,10 @@ class selfintrod(Cog):
         table: Table = db['notech']
         data = dict(ch=channel, text=text, guild=ctx.guild.id)
 
-        # try:
-        #     # table.insert
-        #     table.update(data, ['ch'])
-        #
-        # except:
-        #     table.insert(data)
         table.upsert(data, ['ch'])
         r = table.find()
         for x in r:
             print(x['ch'], x['text'])
-        # await ctx.respond(f"{ctx.guild.get_channel(table.find_one('ch')}")
-
-        # await ctx.respond(f'{table.find()}')
         r = table.find()
         for x in r:
             if ctx.guild.id == x['guild']:
@@ -123,14 +114,12 @@ class selfintrod(Cog):
                     table.delete(ch=channel)
                     await ctx.send_followup(f'該当のチャンネルでの投稿を停止します.')
 
-
-
     # @Cog.listener()
     # async def on_message(self, message: Message):
     #     # if not message.channel.id == 1107916826924564480:
     #     #     return
 
-        # to_send_text =
+    # to_send_text =
     """
     @commands.slash_command(name='setselfintrodch', description='初期の自己紹介を書くCHを設定する')
     @commands.option(name='ch',type=int)

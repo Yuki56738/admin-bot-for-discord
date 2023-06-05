@@ -69,13 +69,20 @@ class MusicCog(Cog):
         while vc.is_playing():
             await asyncio.sleep(1)
         await self.on_song_end(ctx.guild_id, vc)
-    @commands.slash_command(name='stop', description='BOTを退出させる')
+    @commands.slash_command(name='stop', description='音楽を止める')
     async def stop(self, ctx: ApplicationContext):
         vc = ctx.voice_client
+        # await vc.disconnect()
+        await wavelink.Player.stop(vc)
+        await ctx.respond(embed=Embed(description="Music stop..."))
+        song_queue[ctx.guild_id] = []
+    @commands.slash_command(name='leave', description='BOTを退出させる')
+    async def leave(self, ctx:ApplicationContext):
+        vc = ctx.voice_client
         await vc.disconnect()
+        # await wavelink.Player.stop(vc)
         await ctx.respond(embed=Embed(description="Disconnecting..."))
         song_queue[ctx.guild_id] = []
-
     @Cog.listener()
     async def on_ready(self):
         print("MusicCog has been loaded.")

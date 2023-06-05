@@ -21,5 +21,7 @@ bot.load_extension("musiccog")
 @bot.event
 async def on_ready():
     print(f"Logged in as: {bot.user}")
+    for x in bot.guilds:
+        print(x.name)
 
 bot.run(os.environ.get("DISCORD_TOKEN"))
