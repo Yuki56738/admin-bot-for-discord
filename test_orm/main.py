@@ -7,12 +7,10 @@ db = dataset.connect('sqlite:///../db.sqlite')
 # global db
 table: Table = db['notech']
 r = table.find()
-'''
 for x in r:
     # print(x['ch'], x['guild'],x['text'])
-    if not str(x['guild']) == str(965354369556049990):
-        print(x['ch'], x['text'])
-'''
+    # if not str(x['guild']) == str(965354369556049990):
+        print(x['ch'], x['text'], x['guild'])
 # print(r['text'])
 
 
