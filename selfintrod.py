@@ -73,7 +73,7 @@ class selfintrod(Cog):
     async def ping(self, ctx: ApplicationContext):
         await ctx.respond("Pong!")
 
-    @commands.slash_command(name='setnote', description='S***** Noteの文言とチャンネルを変える')
+    @commands.slash_command(name='setnote', description='Noteの文言とチャンネルを変える')
     @commands.option(name='channel', description='チャンネルID')
     @commands.option(name='text')
     async def setnote(self, ctx: ApplicationContext, channel: str, text: str):
@@ -103,6 +103,27 @@ class selfintrod(Cog):
                 # ctx.channel
                 await ctx.respond(f"現在の設定内容:")
                 await ctx.send_followup(x['ch'] + ': ' + x['text'])
+
+    @commands.slash_command(name='delnote', description='Noteの投稿を停止する')
+    @commands.option(name='channel', description='チャンネルID')
+    async def delnote(self, ctx: ApplicationContext, channel: str):
+        if not ctx.user.guild_permissions.administrator:
+            await ctx.respond("権限拒否")
+            return
+        global db
+        table: Table = db['notech']
+        r = table.find()
+        for x in r:
+            if ctx.guild.id == x['guild']:
+                # ctx.channel
+                await ctx.respond(f"現在の設定内容:")
+                await ctx.send_followup(x['ch'] + ': ' + x['text'])
+                if x['ch'] == channel:
+                    x: Table
+                    table.delete(ch=channel)
+                    await ctx.send_followup(f'該当のチャンネルでの投稿を停止します.')
+
+
 
     # @Cog.listener()
     # async def on_message(self, message: Message):
