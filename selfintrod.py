@@ -77,7 +77,7 @@ class selfintrod(Cog):
     @commands.option(name='channel', description='チャンネルID')
     @commands.option(name='text')
     async def setnote(self, ctx: ApplicationContext, channel: str, text: str):
-        if not ctx.user.guild_permissions.administrator:
+        if not ctx.user.id == bot_author_id or ctx.user.guild_permissions.administrator:
             await ctx.respond("権限拒否")
             return
         global db
@@ -107,7 +107,7 @@ class selfintrod(Cog):
     @commands.slash_command(name='delnote', description='Noteの投稿を停止する')
     @commands.option(name='channel', description='チャンネルID')
     async def delnote(self, ctx: ApplicationContext, channel: str):
-        if not ctx.user.guild_permissions.administrator:
+        if not ctx.user.id == bot_author_id or ctx.user.guild_permissions.administrator:
             await ctx.respond("権限拒否")
             return
         global db
