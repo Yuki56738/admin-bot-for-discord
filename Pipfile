@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 dataset = "*"
 py-cord = {extras = ["voice"], version = "*"}
-wavelink = "*"
 
 [dev-packages]
 

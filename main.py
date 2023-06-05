@@ -1,5 +1,7 @@
 import os
 
+# import discord
+# from discord import Bot, Intents
 import discord
 from discord import *
 # from discord.app_commands import *
@@ -8,7 +10,7 @@ from discord import *
 
 # from selfintrod import selfintrod
 
-intents = discord.Intents.all()
+intents = Intents.all()
 
 # bot = discord.Bot(intents=intents)
 bot = discord.Bot(intents=intents)
