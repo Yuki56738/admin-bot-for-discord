@@ -6,10 +6,14 @@ db = dataset.connect('sqlite:///../db.sqlite')
 # db.create_table('CH')
 # global db
 table: Table = db['notech']
-r = table.find_one(ch=1111)
-# for x in r:
-#     print(x['text'])
-print(r['text'])
+r = table.find()
+'''
+for x in r:
+    # print(x['ch'], x['guild'],x['text'])
+    if not str(x['guild']) == str(965354369556049990):
+        print(x['ch'], x['text'])
+'''
+# print(r['text'])
 
 
 # if not table.exists:

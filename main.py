@@ -13,7 +13,7 @@ intents = discord.Intents.all()
 # bot = discord.Bot(intents=intents)
 bot = discord.Bot(intents=intents)
 bot.load_extension("selfintrod")
-
+bot.load_extension("musiccog")
 
 # bot.add_cog(selfintrod(bot))
 
