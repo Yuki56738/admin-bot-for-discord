@@ -2,8 +2,8 @@ import os
 
 # import discord
 # from discord import Bot, Intents
-import discord
 from discord import *
+import discord
 # from discord.app_commands import *
 # from discord.ext.commands import *
 # from discord.ext import *
@@ -17,7 +17,6 @@ bot = discord.Bot(intents=intents)
 bot.load_extension("selfintrod")
 bot.load_extension("musiccog")
 
-# bot.add_cog(selfintrod(bot))
 
 @bot.event
 async def on_ready():

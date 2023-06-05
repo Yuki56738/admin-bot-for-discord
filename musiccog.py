@@ -1,11 +1,10 @@
-from discord.ext import commands
-from discord.ext import *
 from discord import *
 import discord
 
 import wavelink
 
-class MusicCog(commands.Cog):
+
+class MusicCog(Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -18,7 +17,8 @@ class MusicCog(commands.Cog):
             password="yukilava",
             https=False
         )
-    @commands.Cog.listener()
+
+    @Cog.listener()
     async def on_ready(self):
         print("MusicCog has been loaded.")
 
