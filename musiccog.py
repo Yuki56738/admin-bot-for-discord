@@ -3,7 +3,7 @@ import discord
 
 import wavelink
 
-song_queue = {}
+song_queue: dict = {}
 
 
 
@@ -16,8 +16,8 @@ class MusicCog(Cog):
 
     async def on_song_end(guild_id: int, vc: wavelink.Player):
         song_queue[guild_id].pop(0)
-        if song_queue[guild_id]:
-            await vc.play(song_queue[guild_id][0])
+        # if song_queue[guild_id]:
+        await vc.play(song_queue[guild_id][0])
     async def connect_nodes(self):
         await self.bot.wait_until_ready()
         node = await wavelink.NodePool.create_node(
