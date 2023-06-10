@@ -1,12 +1,10 @@
 import os
 
-# import discord
-# from discord import Bot, Intents
 from discord import *
 import discord
-# from discord.app_commands import *
-# from discord.ext.commands import *
-# from discord.ext import *
+
+from dotenv import load_dotenv
+load_dotenv()
 
 # from selfintrod import selfintrod
 

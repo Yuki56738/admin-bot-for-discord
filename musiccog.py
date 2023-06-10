@@ -16,9 +16,10 @@ class MusicCog(Cog):
         # self.song_queue = {}
 
     async def on_song_end(guild_id: int, vc: wavelink.Player):
+        await vc.play(song_queue[guild_id][0])
+
         song_queue[guild_id].pop(0)
         # if song_queue[guild_id]:
-        await vc.play(song_queue[guild_id][0])
     async def connect_nodes(self):
         await self.bot.wait_until_ready()
         node = await wavelink.NodePool.create_node(
@@ -62,12 +63,16 @@ class MusicCog(Cog):
             return await ctx.followup.send("該当なし.")
         # if ctx.guild_id not in song_queue:
         #     # song_queue[ctx.guild_id] = {}
-        song_queue[ctx.guild_id].append(song)
-        if len(song_queue[ctx.guild_id]) == 1:
-            await vc.play(song_queue[ctx.guild_id][0])
+        # song_queue[ctx.guild_id].append(song)
+        song_queue= song_queue|{ctx.guild_id: song}
+
+        # song_queue: dict
+        # if not len(song_queue[ctx.guild_id]) == 0:
+        if song_queue[ctx.guild_id].title != '':
+            await vc.play(song_queue[ctx.guild_id])
             await ctx.followup.send(f"再生中: `{vc.source.title}`")
         else:
-            song_queue[ctx.guild_id].append(url)
+            # song_queue[ctx.guild_id].append()
             await ctx.followup.send(f"`{song.title}` をキューに追加しました。")
         while vc.is_playing():
             await asyncio.sleep(1)
@@ -92,7 +97,7 @@ class MusicCog(Cog):
         print(f"Connecting to node...")
         await self.connect_nodes()
     @Cog.listener()
-    async def on_wavelink_node_ready(self):
+    async def on_wavelink_node_ready(node):
         print("Lava is ready.")
         # print(f"{node.stats} is ready.")  # print a message
 
