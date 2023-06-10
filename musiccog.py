@@ -13,6 +13,7 @@ class MusicCog(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.node = None
+        # self.song_queue = {}
 
     async def on_song_end(guild_id: int, vc: wavelink.Player):
         song_queue[guild_id].pop(0)
@@ -39,7 +40,7 @@ class MusicCog(Cog):
             # await wavelink.Player.disconnect(self, force=True)
             vc = member.guild.voice_client
             await vc.disconnect()
-            song_queue = {}
+
 
     # @Cog.listener()
 
@@ -47,6 +48,7 @@ class MusicCog(Cog):
     @commands.option(name='url', description='URLないし検索ワード')
     async def play(self, ctx: ApplicationContext, url: str):
         vc = ctx.voice_client
+        global song_queue
         await ctx.defer()
         if not vc:
             vc: wavelink.Player = await ctx.author.voice.channel.connect(cls=wavelink.Player)
@@ -58,13 +60,14 @@ class MusicCog(Cog):
         song = await wavelink.YouTubeTrack.search(query=url, return_first=True)
         if not song:
             return await ctx.followup.send("該当なし.")
-        if ctx.guild_id not in song_queue:
-            song_queue[ctx.guild_id] = []
+        # if ctx.guild_id not in song_queue:
+        #     # song_queue[ctx.guild_id] = {}
         song_queue[ctx.guild_id].append(song)
         if len(song_queue[ctx.guild_id]) == 1:
             await vc.play(song_queue[ctx.guild_id][0])
             await ctx.followup.send(f"再生中: `{vc.source.title}`")
         else:
+            song_queue[ctx.guild_id].append(url)
             await ctx.followup.send(f"`{song.title}` をキューに追加しました。")
         while vc.is_playing():
             await asyncio.sleep(1)
