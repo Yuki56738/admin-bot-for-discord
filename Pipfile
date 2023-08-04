@@ -8,6 +8,7 @@ dataset = "*"
 py-cord = {extras = ["voice"], version = "*"}
 wavelink = "==1.3.5"
 python-dotenv = "*"
+sendgrid = "*"
 
 [dev-packages]
 
