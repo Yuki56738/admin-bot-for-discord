@@ -4,7 +4,7 @@ from discord import *
 import discord
 
 from dotenv import load_dotenv
-load_dotenv(".devenv")
+load_dotenv()
 
 # from selfintrod import selfintrod
 
