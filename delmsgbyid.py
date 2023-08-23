@@ -54,6 +54,9 @@ class delmsgbyid(Cog):
     # @commands.option('u)
     @commands.option('userid', description="削除対象のID", type=str)
     async def delmsgbyid(self, ctx: ApplicationContext, userid):
+        if not ctx.user.guild_permissions.administrator:
+            await ctx.respond("権限拒否.")
+            return
         # await ctx.respond()
         modal = self.ModalAreyousure(userid, title='Are you sure?')
         await ctx.send_modal(modal)
